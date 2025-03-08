@@ -5,6 +5,7 @@ import { columns, DepartmentButtons } from "../../Utils/DepartmentHelper";
 
 const DepartmentList = () => {
   const [departments, setDepartments] = useState([]);
+  const [filteredDepartments, setFilteredDepartments] = useState([]);
 
   useEffect(() => {
     const fetchDepartments = () => {
@@ -19,6 +20,7 @@ const DepartmentList = () => {
       }));
 
       setDepartments(formattedDepartments);
+      setFilteredDepartments(formattedDepartments);
     };
 
     const handleDelete = (deletedId) => {
@@ -29,8 +31,29 @@ const DepartmentList = () => {
       setDepartments(formattedDepartments);
     };
 
+    const handleEdit = (updatedDepartment) => {
+      setDepartments((prevDepartments) =>
+        prevDepartments.map((dep) =>
+          dep.id === updatedDepartment.id ? updatedDepartment : dep
+        )
+      );
+
+      setFilteredDepartments((prevFiltered) =>
+        prevFiltered.map((dep) =>
+          dep.id === updatedDepartment.id ? updatedDepartment : dep
+        )
+      );
+    };
+
     fetchDepartments();
   }, []);
+
+  const filterDepartments = (e) => {
+    const records = departments.filter((dep) =>
+      dep.dep_name.toLowerCase().includes(e.target.value.toLowerCase())
+    );
+    setFilteredDepartments(records);
+  };
 
   return (
     <div className="p-5">
@@ -42,6 +65,7 @@ const DepartmentList = () => {
           type="text"
           placeholder="Search By Dep. Name"
           className="px-4 py-0.5 border rounded"
+          onChange={filterDepartments}
         />
         <Link
           to="/admin-dashboard/add-department"
@@ -51,7 +75,7 @@ const DepartmentList = () => {
         </Link>
       </div>
       <div className="mt-5">
-        <DataTable columns={columns} data={departments} pagination />
+        <DataTable columns={columns} data={filteredDepartments} pagination />
       </div>
     </div>
   );

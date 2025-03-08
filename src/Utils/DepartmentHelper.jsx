@@ -11,6 +11,7 @@ export const columns = [
   {
     name: "Department Name",
     selector: (row) => row.dep_name,
+    sortable: true,
   },
   {
     name: "Action",
@@ -37,7 +38,32 @@ export const DepartmentButtons = ({ Id, onDelete }) => {
   const navigate = useNavigate();
 
   const handleEdit = () => {
-    navigate(`/admin-dashboard/edit-department`);
+    let departments = JSON.parse(localStorage.getItem("departments")) || [];
+
+    // Find the department to edit
+    const departmentToEdit = departments.find((dep) => dep.id === Id);
+    if (!departmentToEdit) return;
+
+    // Prompt user for new department name
+    const newDepName = prompt(
+      "Enter new department name:",
+      departmentToEdit.dep_name
+    );
+    if (!newDepName) return;
+
+    // Update department name
+    departmentToEdit.dep_name = newDepName;
+
+    // Save updated list back to localStorage
+    const updatedDepartments = departments.map((dep) =>
+      dep.id === Id ? departmentToEdit : dep
+    );
+
+    localStorage.setItem("departments", JSON.stringify(updatedDepartments));
+
+    // Notify `DepartmentList` about the update
+    onEdit(departmentToEdit);
+    navigate(`/admin-dashboard/edit-department/${Id}`);
   };
   return (
     <div className="flex space-x-3">

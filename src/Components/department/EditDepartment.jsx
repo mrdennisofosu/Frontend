@@ -18,7 +18,7 @@ const EditDepartment = () => {
 
     // Ensure ID type matches (convert to string or number)
     const selectedDepartment = departments.find(
-      (dep) => String(dep._id) === String(id)
+      (dep) => String(dep.id) === String(id)
     );
 
     if (selectedDepartment) {
@@ -43,7 +43,7 @@ const EditDepartment = () => {
 
     // Update only the department with the matching `_id`
     const updatedDepartments = departments.map((dep) =>
-      String(dep._id) === String(id)
+      String(dep.id) === String(id)
         ? {
             ...dep,
             dep_name: department.dep_name,
@@ -75,6 +75,7 @@ const EditDepartment = () => {
           <input
             type="text"
             name="dep_name"
+            value={department.dep_name} // Pre-fill with existing name
             onChange={handleChange}
             placeholder="Department Name"
             className="mt-1 w-full p-2 border border-gray-300 rounded-md"

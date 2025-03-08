@@ -6,6 +6,8 @@ import AdminSummary from "./Components/dashboard/AdminSummary";
 import DepartmentList from "./Components/department/DepartmentList";
 import AddDepartment from "./Components/department/AddDepartment";
 import EditDepartment from "./Components/department/EditDepartment";
+import List from "./Components/employee/List";
+import Add from "./Components/employee/Add";
 
 const ProtectedRoute = ({ children }) => {
   const loggedInUser = JSON.parse(localStorage.getItem("loggedInUser"));
@@ -40,10 +42,13 @@ function App() {
             element={<AddDepartment />}
           ></Route>
           <Route
-            path="/admin-dashboard/edit-department"
+            path="/admin-dashboard/edit-department/:id"
             element={<EditDepartment />}
           ></Route>
+          <Route path="/admin-dashboard/employees" element={<List />}></Route>
+          <Route path="/admin-dashboard/add-employee" element={<Add />}></Route>
         </Route>
+
         <Route
           path="/employee-dashboard"
           element={
