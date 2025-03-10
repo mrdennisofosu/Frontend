@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { fetchDepartments } from "../../Utils/EmployeeHelper";
 import { useNavigate } from "react-router-dom";
+
 const Add = () => {
+  const navigate = useNavigate();
   const [departments, setDepartments] = useState([]);
   const [formData, setFormData] = useState({
     name: "",
@@ -18,8 +19,6 @@ const Add = () => {
     image: null,
   });
 
-  const navigate = useNavigate();
-
   useEffect(() => {
     // Fetch stored departments from localStorage
     const storedDepartments =
@@ -35,11 +34,31 @@ const Add = () => {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Get existing employees or initialize an empty array
     const employees = JSON.parse(localStorage.getItem("employees")) || [];
+
+    // Check for duplicate Employee ID
+    if (employees.some((emp) => emp.employeeId === formData.employeeId)) {
+      alert("Employee ID already exists. Please use a unique ID.");
+      return;
+    }
+
+    // Convert image to Base64
+    const convertToBase64 = (file) => {
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = () => resolve(reader.result);
+        reader.onerror = (error) => reject(error);
+      });
+    };
+
+    let base64Image = null;
+    if (formData.image) {
+      base64Image = await convertToBase64(formData.image);
+    }
 
     // Create a new employee object
     const newEmployee = {
@@ -55,7 +74,7 @@ const Add = () => {
       salary: formData.salary,
       password: formData.password,
       role: formData.role,
-      image: formData.image ? URL.createObjectURL(formData.image) : null, // Convert file to URL
+      image: formData.image ? URL.createObjectURL(formData.image) : null,
     };
 
     // Add the new employee to the array
@@ -84,91 +103,6 @@ const Add = () => {
     alert("Employee added successfully!");
     navigate("/admin-dashboard/employees");
   };
-  // const Add = () => {
-  //   const [departments, setDepartments] = useState([]);
-  //   const [formData, setFormData] = useState({});
-
-  //   useEffect(() => {
-  //     const storedDepartments =
-  //       JSON.parse(localStorage.getItem("departments")) || [];
-  //     setDepartments(storedDepartments);
-
-  //     const getDepartments = () => {
-  //       const response = fetchDepartments(); // No need for async/await since it's synchronous
-
-  //       if (response.success) {
-  //         setDepartments(response.data); // Use response.data instead of the entire object
-  //       } else {
-  //         console.error(response.error); // Handle potential errors
-  //       }
-  //     };
-
-  //     getDepartments();
-  //   }, []);
-
-  //   const handleChange = (e) => {
-  //     const { name, value, files } = e.targer;
-  //     if (name === "image") {
-  //       setFormData((prevData) => ({ ...prevData, [name]: files[0] }));
-  //     } else {
-  //       setFormData((prevData) => ({ ...prevData, [name]: value }));
-  //     }
-  //   };
-
-  //   const handleSubmit = (e) => {
-  //     e.preventDefault();
-
-  //     const formDataObj = new FormData();
-  //     object.keys(formData).forEach((key) => {
-  //       formDataObj.append(key, formData[key]);
-  //     });
-
-  //     // Get existing employees or initialize an empty array
-  //     const employees = JSON.parse(localStorage.getItem("employees")) || [];
-  //     formDataObj;
-  //     // Create a new employee object
-  //     const newEmployee = {
-  //       id: employees.length + 1, // Generate unique ID
-  //       name: employees.name,
-  //       email: employees.email,
-  //       employeeId: employees.employeeId,
-  //       dob: employees.dob,
-  //       gender: employees.gender,
-  //       maritalStatus: employees.maritalStatus,
-  //       designation: employees.designation,
-  //       department: employees.department,
-  //       salary: employees.salary,
-  //       password: employees.password,
-  //       role: employees.role,
-  //       image: employees.image, // Assuming file is handled properly
-  //     };
-
-  //     // Add the new employee to the array
-  //     employees.push(newEmployee);
-
-  //     // Save updated list back to localStorage
-  //     localStorage.setItem("employees", JSON.stringify(employees));
-
-  //     // Reset input fields
-  //     employees({
-  //       name: "",
-  //       email: "",
-  //       employeeId: "",
-  //       dob: "",
-  //       gender: "",
-  //       maritalStatus: "",
-  //       designation: "",
-  //       department: "",
-  //       salary: "",
-  //       password: "",
-  //       role: "",
-  //       image: "",
-  //     });
-
-  //     // Show success alert
-  //     alert("Employee added successfully!");
-  //     navigate("/admin-dashboard/employees"); // Redirect to employee list
-  //   };
 
   return (
     <div className="max-w-4xl mx-auto mt-10 bg-white p-8 rounded-md shadow-md">
@@ -183,13 +117,15 @@ const Add = () => {
             <input
               type="text"
               name="name"
-              onchange={handleChange}
+              value={formData.name}
+              onChange={handleChange}
               placeholder="Insert Name..."
               className="mt-1 p-2 block w-full border border-gray-300 rounded-md"
               required
             />
           </div>
-          {/*Email*/}
+
+          {/* Email */}
           <div>
             <label className="block text-sm font-medium text-gray-700">
               Email
@@ -197,13 +133,15 @@ const Add = () => {
             <input
               type="email"
               name="email"
-              onchange={handleChange}
+              value={formData.email}
+              onChange={handleChange}
               placeholder="Insert Email..."
               className="mt-1 p-2 block w-full border border-gray-300 rounded-md"
               required
             />
           </div>
-          {/*Employee ID*/}
+
+          {/* Employee ID */}
           <div>
             <label className="block text-sm font-medium text-gray-700">
               Employee ID
@@ -211,13 +149,15 @@ const Add = () => {
             <input
               type="text"
               name="employeeId"
-              onchange={handleChange}
+              value={formData.employeeId}
+              onChange={handleChange}
               placeholder="Employee ID..."
               className="mt-1 p-2 block w-full border border-gray-300 rounded-md"
               required
             />
           </div>
-          {/*Date of birth*/}
+
+          {/* Date of Birth */}
           <div>
             <label className="block text-sm font-medium text-gray-700">
               Date of Birth
@@ -225,21 +165,22 @@ const Add = () => {
             <input
               type="date"
               name="dob"
-              onchange={handleChange}
-              placeholder="DOB"
+              value={formData.dob}
+              onChange={handleChange}
               className="mt-1 p-2 block w-full border border-gray-300 rounded-md"
               required
             />
           </div>
 
-          {/*Gender*/}
+          {/* Gender */}
           <div>
             <label className="block text-sm font-medium text-gray-700">
               Gender
             </label>
             <select
               name="gender"
-              onchange={handleChange}
+              value={formData.gender}
+              onChange={handleChange}
               className="mt-1 p-2 block w-full border border-gray-300 rounded-md"
               required
             >
@@ -250,14 +191,14 @@ const Add = () => {
             </select>
           </div>
 
-          {/*Marital Status*/}
+          {/* Marital Status */}
           <div>
             <label className="block text-sm font-medium text-gray-700">
               Marital Status
             </label>
             <select
               name="maritalStatus"
-              onchange={handleChange}
+              onChange={handleChange}
               placeholder="Marital Status"
               className="mt-1 p-2 block w-full border border-gray-300 rounded-md"
               required
@@ -271,7 +212,7 @@ const Add = () => {
             </select>
           </div>
 
-          {/*Designation*/}
+          {/* Designation */}
           <div>
             <label className="block text-sm font-medium text-gray-700">
               Designation
@@ -279,35 +220,36 @@ const Add = () => {
             <input
               type="text"
               name="designation"
-              onchange={handleChange}
+              value={formData.designation}
+              onChange={handleChange}
               placeholder="Designation..."
               className="mt-1 p-2 block w-full border border-gray-300 rounded-md"
               required
             />
           </div>
 
-          {/*Department*/}
+          {/* Department */}
           <div>
             <label className="block text-sm font-medium text-gray-700">
               Department
             </label>
             <select
               name="department"
-              onchange={handleChange}
+              value={formData.department}
+              onChange={handleChange}
               className="mt-1 p-2 block w-full border border-gray-300 rounded-md"
               required
             >
               <option value="">Select Department</option>
               {departments.map((dep) => (
-                <option key={dep._id} value={dep._id}>
-                  {dep.dep_name} {/* Corrected: Render the department name */}
+                <option key={dep.id} value={dep.id}>
+                  {dep.dep_name}
                 </option>
               ))}
             </select>
           </div>
 
-          {/*Salary*/}
-
+          {/* Salary */}
           <div>
             <label className="block text-sm font-medium text-gray-700">
               Salary
@@ -315,14 +257,15 @@ const Add = () => {
             <input
               type="number"
               name="salary"
-              onchange={handleChange}
+              value={formData.salary}
+              onChange={handleChange}
               placeholder="Salary..."
               className="mt-1 p-2 block w-full border border-gray-300 rounded-md"
               required
             />
           </div>
 
-          {/*Password*/}
+          {/* Password */}
           <div>
             <label className="block text-sm font-medium text-gray-700">
               Password
@@ -330,21 +273,22 @@ const Add = () => {
             <input
               type="password"
               name="password"
-              placeholder="*******"
-              onchange={handleChange}
+              value={formData.password}
+              onChange={handleChange}
+              placeholder="*********"
               className="mt-1 p-2 block w-full border border-gray-300 rounded-md"
               required
             />
           </div>
 
-          {/* role*/}
+          {/* Role */}
           <div>
             <label className="block text-sm font-medium text-gray-700">
               Role
             </label>
             <select
               name="role"
-              onchange={handleChange}
+              onChange={handleChange}
               className="mt-1 p-2 block w-full border border-gray-300 rounded-md"
               required
             >
@@ -353,7 +297,6 @@ const Add = () => {
               <option value="">Employee</option>
             </select>
           </div>
-
           {/* upload image */}
           <div>
             <label className="block text-sm font-medium text-gray-700">
@@ -364,15 +307,15 @@ const Add = () => {
               <input
                 type="file"
                 name="image"
-                onchange={handleChange}
+                onChange={handleChange}
                 accept="image/*"
                 className="hidden"
               />
             </label>
           </div>
         </div>
-        {/* submit button */}
 
+        {/* Submit Button */}
         <button
           type="submit"
           className="w-full mt-6 bg-teal-600 hover:bg-teal-700 text-white font-bold py-3 rounded-md uppercase"
@@ -383,4 +326,5 @@ const Add = () => {
     </div>
   );
 };
+
 export default Add;

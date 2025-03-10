@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 
 // import { Link } from "react-router-dom";
-import(useNavigate);
+// import(useNavigate);
 
 export const columns = [
   {
@@ -65,6 +65,7 @@ export const DepartmentButtons = ({ Id, onDelete }) => {
     onEdit(departmentToEdit);
     navigate(`/admin-dashboard/edit-department/${Id}`);
   };
+
   return (
     <div className="flex space-x-3">
       {/* <Link
