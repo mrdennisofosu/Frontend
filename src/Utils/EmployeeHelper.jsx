@@ -1,4 +1,23 @@
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
+
+const storedImage = localStorage.getItem("uploadedImage");
+
+// const customStyles = {
+//   rows: {
+//     style: {
+//       marginBottom: "10px", // Adds space between rows
+//     },
+//   },
+// };
+
+// const customStyles = {
+//   rows: {
+//     style: {
+//       marginBottom: "10px", // Adds space between rows
+//     },
+//   },
+// };
 
 export const columns = [
   {
@@ -6,14 +25,15 @@ export const columns = [
     selector: (row, index) => index + 1,
     width: "60px",
   },
+
   {
     name: "image",
     selector: (row) => row.image,
     cell: (row) => (
       <img
-        src={row.image}
-        // alt="Employee"
-        className="w-12 h-12 rounded-full object-cover"
+        src={row.image || storedImage} // Fallback to stored image
+        alt="Employee"
+        className="w-10 h-10 rounded-full object-cover"
       />
     ),
     sortable: false,
@@ -27,28 +47,32 @@ export const columns = [
   {
     name: "Department",
     selector: (row) => row.department || "N/A",
-
+    center: "trueS",
     width: "150px",
   },
   {
     name: "DOB",
     selector: (row) => row.dob || "N/A",
-
+    center: "true",
     width: "150px",
   },
   {
     name: "Action",
     width: "300px",
     cell: (row) => <EmployeeButtons Id={row.id} />,
+    center: "true",
   },
 ];
 
 export const EmployeeButtons = ({ Id }) => {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
-  const handleEdit = () => {
-    navigate(`/admin-dashboard/edit-employee/${Id}`);
-  };
+  // const handleEdit = () => {
+  //   navigate(`/admin-dashboard/edit-employee/${Id}`);
+  // };
+  // const handleView = () => {
+  //   navigate(`/admin-dashboard/view-employee/${Id}`);
+  // };
 
   const handleDelete = () => {
     if (window.confirm("Are you sure you want to delete this employee?")) {
@@ -61,13 +85,17 @@ export const EmployeeButtons = ({ Id }) => {
 
   return (
     <div className="flex space-x-2">
-      <button className="px-2 py-1 bg-blue-500 rounded text-white">View</button>
-      <button
-        onClick={handleEdit}
-        className="px-2 py-1 bg-green-500 rounded text-white"
+      {/* <button
+      // onClick={handleView}
+      > */}
+      <Link
+        to="/admin-dashboard/view-employee"
+        className="px-2 py-1 bg-blue-500 hover:bg-blue-900 rounded text-white"
       >
-        Edit
-      </button>
+        View & Edit
+      </Link>
+      {/* </button> */}
+
       <button className="px-2 py-1 bg-yellow-500 rounded text-white">
         Leave
       </button>

@@ -13,7 +13,7 @@ const Add = () => {
     maritalStatus: "",
     designation: "",
     department: "",
-    salary: "",
+    phoneNumber: "",
     password: "",
     role: "",
     image: null,
@@ -26,16 +26,41 @@ const Add = () => {
     setDepartments(storedDepartments);
   }, []);
 
-  const handleChange = (e) => {
+  const handleChange = async (e) => {
     const { name, value, files } = e.target;
-    setFormData((prevData) => ({
-      ...prevData,
-      [name]: name === "image" ? files[0] : value, // Handle image separately
-    }));
+
+    if (name === "image" && files.length > 0) {
+      const file = files[0];
+      const base64 = await convertToBase64(file);
+
+      // Save to localStorage
+      localStorage.setItem("uploadedImage", base64);
+
+      setFormData((prevData) => ({
+        ...prevData,
+        image: base64, // Store Base64 image in state
+      }));
+    } else {
+      setFormData((prevData) => ({
+        ...prevData,
+        [name]: value, // Update other input fields
+      }));
+    }
+  };
+
+  // Convert image to Base64 function
+  const convertToBase64 = (file) => {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => resolve(reader.result);
+      reader.onerror = (error) => reject(error);
+    });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log("handleSubmit triggered");
 
     const employees = JSON.parse(localStorage.getItem("employees")) || [];
 
@@ -43,21 +68,6 @@ const Add = () => {
     if (employees.some((emp) => emp.employeeId === formData.employeeId)) {
       alert("Employee ID already exists. Please use a unique ID.");
       return;
-    }
-
-    // Convert image to Base64
-    const convertToBase64 = (file) => {
-      return new Promise((resolve, reject) => {
-        const reader = new FileReader();
-        reader.readAsDataURL(file);
-        reader.onload = () => resolve(reader.result);
-        reader.onerror = (error) => reject(error);
-      });
-    };
-
-    let base64Image = null;
-    if (formData.image) {
-      base64Image = await convertToBase64(formData.image);
     }
 
     // Create a new employee object
@@ -71,10 +81,10 @@ const Add = () => {
       maritalStatus: formData.maritalStatus,
       designation: formData.designation,
       department: formData.department,
-      salary: formData.salary,
+      phoneNumber: formData.phoneNumber,
       password: formData.password,
       role: formData.role,
-      image: formData.image ? URL.createObjectURL(formData.image) : null,
+      image: formData.image,
     };
 
     // Add the new employee to the array
@@ -93,7 +103,7 @@ const Add = () => {
       maritalStatus: "",
       designation: "",
       department: "",
-      salary: "",
+      phoneNumber: "",
       password: "",
       role: "",
       image: null,
@@ -252,14 +262,14 @@ const Add = () => {
           {/* Salary */}
           <div>
             <label className="block text-sm font-medium text-gray-700">
-              Salary
+              Phone Number
             </label>
             <input
               type="number"
-              name="salary"
-              value={formData.salary}
+              name="phoneNumber"
+              value={formData.phone}
               onChange={handleChange}
-              placeholder="Salary..."
+              placeholder="Phone Number..."
               className="mt-1 p-2 block w-full border border-gray-300 rounded-md"
               required
             />
@@ -288,13 +298,14 @@ const Add = () => {
             </label>
             <select
               name="role"
+              placeholder="Role"
               onChange={handleChange}
               className="mt-1 p-2 block w-full border border-gray-300 rounded-md"
               required
             >
               <option value="">Select Role</option>
-              <option value="">Admin</option>
-              <option value="">Employee</option>
+              <option value="Admin">Admin</option>
+              <option value="Employee">Employee</option>
             </select>
           </div>
           {/* upload image */}

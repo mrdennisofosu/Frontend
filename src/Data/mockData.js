@@ -1,7 +1,8 @@
 // Initial mock users
 const mockUsers = [
     { id: 1, name: "Admin", email: "admin@gmail.com", password: "admin123", role: "admin" },
-    { id: 2, name: "John Doe", email: "john@gmail.com", password: "john123", role: "employee" }
+    { id: 2, name: "John Doe", email: "john@gmail.com", password: "john123", role: "employee" },
+    { id: 3, name: "Dennis Ofosu", email: "dennis@gmail.com", password: "dennis123", role: "employee" },
 ];
 
 // Save mock users to localStorage if not already set

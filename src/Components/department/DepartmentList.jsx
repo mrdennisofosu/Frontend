@@ -31,20 +31,6 @@ const DepartmentList = () => {
       setDepartments(formattedDepartments);
     };
 
-    const handleEdit = (updatedDepartment) => {
-      setDepartments((prevDepartments) =>
-        prevDepartments.map((dep) =>
-          dep.id === updatedDepartment.id ? updatedDepartment : dep
-        )
-      );
-
-      setFilteredDepartments((prevFiltered) =>
-        prevFiltered.map((dep) =>
-          dep.id === updatedDepartment.id ? updatedDepartment : dep
-        )
-      );
-    };
-
     fetchDepartments();
   }, []);
 

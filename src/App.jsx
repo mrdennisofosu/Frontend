@@ -5,9 +5,12 @@ import EmployeeDashboard from "./Pages/EmployeeDashboard";
 import AdminSummary from "./Components/dashboard/AdminSummary";
 import DepartmentList from "./Components/department/DepartmentList";
 import AddDepartment from "./Components/department/AddDepartment";
-import EditDepartment from "./Components/department/EditDepartment";
 import List from "./Components/employee/List";
 import Add from "./Components/employee/Add";
+import View from "./Components/employee/View";
+import ViewDepartment from "./Components/department/ViewDepartment";
+import Summary from "./Components/EmployeeDashboard/Summary";
+import Profile from "./Components/EmployeeDashboard/Profile";
 
 const ProtectedRoute = ({ children }) => {
   const loggedInUser = JSON.parse(localStorage.getItem("loggedInUser"));
@@ -42,11 +45,16 @@ function App() {
             element={<AddDepartment />}
           ></Route>
           <Route
-            path="/admin-dashboard/edit-department/:id"
-            element={<EditDepartment />}
+            path="/admin-dashboard/view-department"
+            element={<ViewDepartment />}
           ></Route>
+
           <Route path="/admin-dashboard/employees" element={<List />}></Route>
           <Route path="/admin-dashboard/add-employee" element={<Add />}></Route>
+          <Route
+            path="/admin-dashboard/view-employee"
+            element={<View />}
+          ></Route>
         </Route>
 
         <Route
@@ -56,7 +64,13 @@ function App() {
               <EmployeeDashboard />
             </ProtectedRoute>
           }
-        ></Route>
+        >
+          <Route index element={<Summary />}></Route>
+          <Route
+            path="/employee-dashboard/profile"
+            element={<Profile />}
+          ></Route>
+        </Route>
       </Routes>
     </BrowserRouter>
   );

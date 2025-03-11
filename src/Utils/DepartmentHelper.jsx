@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 // import { Link } from "react-router-dom";
 // import(useNavigate);
@@ -35,53 +35,15 @@ export const DepartmentButtons = ({ Id, onDelete }) => {
     }
   };
 
-  const navigate = useNavigate();
-
-  const handleEdit = () => {
-    let departments = JSON.parse(localStorage.getItem("departments")) || [];
-
-    // Find the department to edit
-    const departmentToEdit = departments.find((dep) => dep.id === Id);
-    if (!departmentToEdit) return;
-
-    // Prompt user for new department name
-    const newDepName = prompt(
-      "Enter new department name:",
-      departmentToEdit.dep_name
-    );
-    if (!newDepName) return;
-
-    // Update department name
-    departmentToEdit.dep_name = newDepName;
-
-    // Save updated list back to localStorage
-    const updatedDepartments = departments.map((dep) =>
-      dep.id === Id ? departmentToEdit : dep
-    );
-
-    localStorage.setItem("departments", JSON.stringify(updatedDepartments));
-
-    // Notify `DepartmentList` about the update
-    onEdit(departmentToEdit);
-    navigate(`/admin-dashboard/edit-department/${Id}`);
-  };
-
   return (
     <div className="flex space-x-3">
-      {/* <Link
-        to="/admin-dashboard/edit-department"
-        className="px-4 py-1 bg-teal-500  hover:bg-teal-700 rounded text-white"
+      <Link
+        to="/admin-dashboard/view-department"
+        className="px-2 py-1 bg-blue-500 hover:bg-blue-900 rounded text-white"
       >
-        Edit
-    
-      </Link> */}
+        View & Edit
+      </Link>
 
-      <button
-        onClick={handleEdit}
-        className="px-4 py-1 bg-teal-500 rounded text-white"
-      >
-        Edit
-      </button>
       <button
         onClick={handleDelete}
         className="px-3 py-1 bg-red-600 hover:bg-red-900 text-white rounded"
