@@ -14,6 +14,7 @@ import Profile from "./Components/EmployeeDashboard/Profile";
 import LeaveList from "./Components/leave/LeaveList";
 import AddLeave from "./Components/leave/AddLeave";
 import AdminLeave from "./Components/AdminLeaves/AdminLeave";
+import Setting from "./Components/EmployeeDashboard/Setting";
 
 const ProtectedRoute = ({ children }) => {
   const loggedInUser = JSON.parse(localStorage.getItem("loggedInUser"));
@@ -81,6 +82,10 @@ function App() {
           <Route
             path="/employee-dashboard/add-leaves"
             element={<AddLeave />}
+          ></Route>
+          <Route
+            path="/employee-dashboard/setting"
+            element={<Setting />}
           ></Route>
         </Route>
       </Routes>
