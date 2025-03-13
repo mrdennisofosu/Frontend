@@ -8,6 +8,7 @@ const AddLeave = () => {
     userId: "",
     name: "",
     employeeId: "",
+    email: "", // Add this field
     leaveType: "",
     startDate: "",
     endDate: "",
@@ -30,6 +31,7 @@ const AddLeave = () => {
           userId: user.id, // Ensure the userId matches what is stored in LeaveList
           name: employee.name,
           employeeId: employee.employeeId, // Ensure correct Employee ID
+          email: user.email, // Include the email
         }));
       }
     }
