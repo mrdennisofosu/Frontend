@@ -4,7 +4,7 @@ import {
   FaTachometerAlt,
   FaBuilding,
   FaUsers,
-  FaCalendarAlt,
+  // FaCalendarAlt,
   // FaMoneyBillWave,
   FaCogs,
 } from "react-icons/fa";

@@ -8,12 +8,13 @@ const AddLeave = () => {
     userId: "",
     name: "",
     employeeId: "",
-    email: "", // Add this field
+    email: "",
     leaveType: "",
     startDate: "",
     endDate: "",
     reason: "",
-    status: "Pending", // Default status
+    status: "Pending",
+    attachment: null, // New field for the document attachment
   });
 
   useEffect(() => {
@@ -28,10 +29,10 @@ const AddLeave = () => {
       if (employee) {
         setLeave((prevLeave) => ({
           ...prevLeave,
-          userId: user.id, // Ensure the userId matches what is stored in LeaveList
+          userId: user.id,
           name: employee.name,
-          employeeId: employee.employeeId, // Ensure correct Employee ID
-          email: user.email, // Include the email
+          employeeId: employee.employeeId,
+          email: user.email,
         }));
       }
     }
@@ -42,6 +43,11 @@ const AddLeave = () => {
     setLeave((prevState) => ({ ...prevState, [name]: value }));
   };
 
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+    setLeave((prevState) => ({ ...prevState, attachment: file }));
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!loggedInUser) {
@@ -49,13 +55,12 @@ const AddLeave = () => {
       return;
     }
 
-    // Fetch existing leave requests
     const existingLeaves =
       JSON.parse(localStorage.getItem("leaveRequests")) || [];
 
     const newLeaveRequest = {
       id: Date.now(),
-      image: loggedInUser.image, // Include employee image
+      image: loggedInUser.image,
       ...leave,
     };
 
@@ -64,7 +69,7 @@ const AddLeave = () => {
     localStorage.setItem("leaveRequests", JSON.stringify(updatedLeaves));
 
     alert("Leave request submitted successfully!");
-    navigate("/employee-dashboard/leaves"); // Navigate to Leave List page
+    navigate("/employee-dashboard/leaves");
 
     // Clear form but keep user details
     setLeave({
@@ -76,6 +81,7 @@ const AddLeave = () => {
       endDate: "",
       reason: "",
       status: "Pending",
+      attachment: null,
     });
   };
 
@@ -92,7 +98,6 @@ const AddLeave = () => {
       </div>
       <form onSubmit={handleSubmit}>
         <div className="flex flex-col space-y-4">
-          {/* Employee Name - Non-editable */}
           <div>
             <label className="block text-sm font-medium text-gray-700">
               Employee Name
@@ -105,7 +110,6 @@ const AddLeave = () => {
             />
           </div>
 
-          {/* Employee ID - Non-editable */}
           <div>
             <label className="block text-sm font-medium text-gray-700">
               Employee ID

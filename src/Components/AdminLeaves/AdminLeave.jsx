@@ -1,5 +1,43 @@
 import React, { useState, useEffect } from "react";
 
+const ghanaHolidays = [
+  "2025-01-01",
+  "2025-03-06",
+  "2025-04-18",
+  "2025-04-21",
+  "2025-05-01",
+  "2025-05-25",
+  "2025-07-01",
+  "2025-07-11",
+  "2025-08-04",
+  "2025-09-21",
+  "2025-12-25",
+  "2025-12-26",
+];
+
+// Function to calculate leave days excluding weekends and holidays
+const countLeaveDays = (start, end) => {
+  let currentDate = new Date(start);
+  let endDate = new Date(end);
+  let leaveDays = 0;
+
+  while (currentDate <= endDate) {
+    const dayOfWeek = currentDate.getDay(); // 0 = Sunday, 6 = Saturday
+    const formattedDate = currentDate.toISOString().split("T")[0];
+
+    if (
+      dayOfWeek !== 0 &&
+      dayOfWeek !== 6 &&
+      !ghanaHolidays.includes(formattedDate)
+    ) {
+      leaveDays++;
+    }
+    currentDate.setDate(currentDate.getDate() + 1);
+  }
+
+  return leaveDays;
+};
+
 const AdminLeave = () => {
   const [leaveRequests, setLeaveRequests] = useState([]);
   const [selectedLeave, setSelectedLeave] = useState(null);
@@ -98,6 +136,7 @@ const AdminLeave = () => {
             <th className="px-6 py-3">Leave Type</th>
             <th className="px-6 py-3">From</th>
             <th className="px-6 py-3">To</th>
+            <th className="px-6 py-3">Days</th>
             <th className="px-6 py-3">Status</th>
             <th className="px-6 py-3">Action</th>
           </tr>
@@ -106,11 +145,14 @@ const AdminLeave = () => {
           {filteredLeaves.length > 0 ? (
             filteredLeaves.map((leave) => (
               <tr key={leave.id} className="bg-white border-b">
-                <td className="px-6 py-3">{leave.userId}</td>
+                <td className="px-6 py-3">{leave.employeeId}</td>
                 <td className="px-6 py-3">{leave.name}</td>
                 <td className="px-6 py-3">{leave.leaveType}</td>
                 <td className="px-6 py-3">{leave.startDate}</td>
                 <td className="px-6 py-3">{leave.endDate}</td>
+                <td className="px-6 py-3">
+                  {countLeaveDays(leave.startDate, leave.endDate)}
+                </td>
                 <td
                   className={`px-6 py-3 font-semibold ${
                     leave.status === "Approved"
@@ -122,7 +164,6 @@ const AdminLeave = () => {
                 >
                   {leave.status ? leave.status : "Pending"}
                 </td>
-
                 <td className="px-6 py-3">
                   <button
                     className="bg-blue-500 hover:bg-blue-600 text-white py-1 px-3 rounded"
@@ -144,86 +185,12 @@ const AdminLeave = () => {
       </table>
 
       {/* Modal for Viewing Leave Details */}
-      {/* {selectedLeave && (
-        <div className="fixed inset-0 bg-gray bg-opacity-50 flex justify-center items-center">
-          <div className="bg-blue-100 p-6 rounded-md shadow-md w-96">
-            <h3 className="text-lg font-bold mb-4">Leave Details</h3>
-            <p>
-              <strong>Employee ID:</strong> {selectedLeave.userId}
-            </p>
-            <p>
-              <strong>Employee Name:</strong> {selectedLeave.name}
-            </p>
-            <p>
-              <strong>Leave Type:</strong> {selectedLeave.leaveType}
-            </p>
-            <p>
-              <strong>From:</strong> {selectedLeave.startDate}
-            </p>
-            <p>
-              <strong>To:</strong> {selectedLeave.endDate}
-            </p>
-            <p>
-              <strong>Reason:</strong> {selectedLeave.reason}
-            </p>
-            <p>
-              <strong>Status:</strong>{" "}
-              <span
-                className={`font-semibold ${
-                  selectedLeave.status === "Approved"
-                    ? "text-green-600"
-                    : selectedLeave.status === "Rejected"
-                    ? "text-red-600"
-                    : "text-blue-600"
-                }`}
-              >
-                {selectedLeave.status || "Pending"}
-              </span>
-            </p>
-
-            <div className="mt-4 flex justify-center">
-              {selectedLeave.status === "Approved" ||
-              selectedLeave.status === "Rejected" ? (
-                <button
-                  className="bg-gray-400 hover:bg-gray-500 text-white py-1 px-3 rounded"
-                  onClick={() => setSelectedLeave(null)}
-                >
-                  Close
-                </button>
-              ) : (
-                <>
-                  <button
-                    className="bg-green-500 hover:bg-green-600 text-white py-1 px-3 rounded mr-3"
-                    onClick={() => handleStatusUpdate("Approved")}
-                  >
-                    Approve
-                  </button>
-                  <button
-                    className="bg-red-500 hover:bg-red-600 text-white py-1 px-3 rounded mr-3"
-                    onClick={() => handleStatusUpdate("Rejected")}
-                  >
-                    Reject
-                  </button>
-                  <button
-                    className="bg-gray-400 hover:bg-gray-500 text-white py-1 px-3 rounded"
-                    onClick={() => setSelectedLeave(null)}
-                  >
-                    Close
-                  </button>
-                </>
-              )}
-            </div>
-          </div>
-        </div>
-      )} */}
-
-      {/* Modal for Viewing Leave Details */}
       {selectedLeave && (
         <div className="fixed inset-0 bg-gray bg-opacity-50 flex justify-center items-center">
           <div className="bg-blue-100 p-6 rounded-md shadow-md w-96">
             <h3 className="text-lg font-bold mb-4">Leave Details</h3>
             <p>
-              <strong>Employee ID:</strong> {selectedLeave.userId}
+              <strong>Employee ID:</strong> {selectedLeave.employeeId}
             </p>
             <p>
               <strong>Employee Name:</strong> {selectedLeave.name}
@@ -241,6 +208,11 @@ const AdminLeave = () => {
               <strong>To:</strong> {selectedLeave.endDate}
             </p>
             <p>
+              <strong>Total Days:</strong>{" "}
+              {countLeaveDays(selectedLeave.startDate, selectedLeave.endDate)}
+            </p>
+
+            <p>
               <strong>Reason:</strong> {selectedLeave.reason}
             </p>
             <p>
@@ -257,7 +229,6 @@ const AdminLeave = () => {
                 {selectedLeave.status || "Pending"}
               </span>
             </p>
-
             <div className="mt-4 flex justify-between items-center">
               {/* Approve and Reject buttons (only if pending) */}
               {selectedLeave.status === "Approved" ||
