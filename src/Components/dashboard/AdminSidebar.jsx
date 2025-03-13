@@ -15,7 +15,6 @@ const AdminSidebar = () => {
       <div className="bg-teal-600 h-12 flex items-center justify-center">
         <h3 className="text-2xl text-center font-plus-jakarta">
           Mojo Employee M.S.
-          {/* <img src={logo1} /> */}
         </h3>
       </div>
       <div>
