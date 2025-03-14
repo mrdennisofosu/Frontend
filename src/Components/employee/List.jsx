@@ -58,7 +58,7 @@ const List = () => {
         />
         <Link
           to="/admin-dashboard/add-employee"
-          className="px-4 py-1 bg-teal-600 hover:bg-teal-900 rounded text-white"
+          className="px-4 py-1 bg-teal-800 hover:bg-teal-900 rounded text-white"
         >
           Add New Employee
         </Link>

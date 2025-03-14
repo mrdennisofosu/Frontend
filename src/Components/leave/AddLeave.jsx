@@ -88,9 +88,9 @@ const AddLeave = () => {
   return (
     <div className="max-w-4xl mx-auto mt-10 bg-white p-8 rounded-md shadow-md">
       <div className="flex justify-between items-center mb-6">
-        <h2 className="text-2xl font-bold">Request for Leave</h2>
+        <h2 className="text-3xl font-bold">Request for Leave</h2>
         <Link
-          to="/employee-dashboard/leaves"
+          to="/admin-dashboard/employee"
           className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded"
         >
           Return
@@ -187,7 +187,7 @@ const AddLeave = () => {
 
           <button
             type="submit"
-            className="mt-4 bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded"
+            className="mt-4 bg-blue-600 hover:bg-blue-800 text-white font-bold py-2 px-4 rounded"
           >
             Submit
           </button>

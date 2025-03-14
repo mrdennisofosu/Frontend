@@ -185,7 +185,7 @@ const LeaveList = () => {
         />
         <Link
           to="/employee-dashboard/add-leaves"
-          className="px-4 py-1 bg-teal-600 rounded text-white"
+          className="px-4 py-1 bg-teal-800 hover:bg-teal-900 rounded text-white"
         >
           Add New Leave
         </Link>

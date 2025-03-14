@@ -15,6 +15,8 @@ import LeaveList from "./Components/leave/LeaveList";
 import AddLeave from "./Components/leave/AddLeave";
 import AdminLeave from "./Components/AdminLeaves/AdminLeave";
 import Setting from "./Components/EmployeeDashboard/Setting";
+import ForgotPassword from "./Pages/ForgotPassword";
+import ResetPassword from "./Pages/ResetPassword";
 
 const ProtectedRoute = ({ children }) => {
   const loggedInUser = JSON.parse(localStorage.getItem("loggedInUser"));
@@ -30,6 +32,8 @@ function App() {
       <Routes>
         <Route path="/" element={<Navigate to="/admin-dashboard" />}></Route>
         <Route path="/login" element={<Login />}></Route>
+        <Route path="/forgot-password" element={<ForgotPassword />}></Route>
+        <Route path="/reset-password" element={<ResetPassword />}></Route>
         <Route
           path="/admin-dashboard"
           element={

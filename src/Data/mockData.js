@@ -33,3 +33,12 @@ export const addUser = (newUser) => {
     users.push(newUser);
     saveUsers(users);
 };
+
+
+export const updateUserPassword = (email, newPassword) => {
+  let users = getUsers();
+  users = users.map((user) =>
+    user.email === email ? { ...user, password: newPassword } : user
+  );
+  localStorage.setItem("users", JSON.stringify(users));
+};

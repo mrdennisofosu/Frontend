@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const Add = () => {
   const navigate = useNavigate();
@@ -116,7 +117,15 @@ const Add = () => {
 
   return (
     <div className="max-w-4xl mx-auto mt-10 bg-white p-8 rounded-md shadow-md">
-      <h2 className="text-2xl font-bold mb-6">Add New Employee</h2>
+      <div className="flex justify-between items-center mb-6">
+        <h2 className="text-3xl font-bold mb-2">Add New Employee</h2>
+        <Link
+          to="/admin-dashboard/employees"
+          className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded"
+        >
+          Return
+        </Link>
+      </div>
       <form onSubmit={handleSubmit}>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {/* Name */}
@@ -329,7 +338,7 @@ const Add = () => {
         {/* Submit Button */}
         <button
           type="submit"
-          className="w-full mt-6 bg-teal-600 hover:bg-teal-700 text-white font-bold py-3 rounded-md uppercase"
+          className="w-full mt-6 bg-blue-600 hover:bg-blue-800 text-white font-bold py-3 rounded-md uppercase"
         >
           Add Employee
         </button>

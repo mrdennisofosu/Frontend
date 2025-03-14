@@ -11,9 +11,10 @@ import {
 
 const AdminSidebar = () => {
   return (
-    <div className="bg-gray-800 text-white h-screen fixed left-0 top-0 bottom-0 space-y-2 w-64">
-      <div className="bg-teal-600 h-12 flex items-center justify-center">
-        <h3 className="text-2xl text-center font-plus-jakarta">
+    <div className="bg-gray-900 text-white h-screen fixed left-0 top-0 bottom-0 space-y-2 w-64 shadow-lg">
+      {/* Header */}
+      <div className="bg-teal-800 h-16 flex items-center justify-center shadow-md">
+        <h3 className="text-xl text-center font-semibold tracking-wide">
           Mojo Employee M.S.
         </h3>
       </div>
@@ -22,8 +23,10 @@ const AdminSidebar = () => {
           to="/admin-dashboard"
           className={({ isActive }) =>
             `${
-              isActive ? "bg-teal-500 " : ""
-            } flex items-center space-x-4 block py-2.5 px-4 rounded`
+              isActive
+                ? "bg-teal-800 text-white"
+                : "hover:bg-teal-800 hover:text-gray-100"
+            } flex items-center m-1 space-x-4 block py-3 px-6 rounded-md transition`
           }
           end
         >
@@ -34,8 +37,10 @@ const AdminSidebar = () => {
           to="/admin-dashboard/employees"
           className={({ isActive }) =>
             `${
-              isActive ? "bg-teal-500 " : ""
-            } flex items-center space-x-4 block py-2.5 px-4 rounded`
+              isActive
+                ? "bg-teal-800 text-white"
+                : "hover:bg-teal-800 hover:text-gray-100"
+            } flex items-center m-1 space-x-4 block py-3 px-6 rounded-md transition`
           }
         >
           <FaUsers />
@@ -45,8 +50,10 @@ const AdminSidebar = () => {
           to="/admin-dashboard/departments"
           className={({ isActive }) =>
             `${
-              isActive ? "bg-teal-500 " : ""
-            } flex items-center space-x-4 block py-2.5 px-4 rounded`
+              isActive
+                ? "bg-teal-800 text-white"
+                : "hover:bg-teal-800 hover:text-gray-100"
+            } flex items-center m-1 space-x-4 block py-3 px-6 rounded-md transition`
           }
         >
           <FaBuilding />
@@ -56,20 +63,16 @@ const AdminSidebar = () => {
           to="/admin-dashboard/leave"
           className={({ isActive }) =>
             `${
-              isActive ? "bg-teal-500 " : ""
-            } flex items-center space-x-4 block py-2.5 px-4 rounded`
+              isActive
+                ? "bg-teal-800 text-white"
+                : "hover:bg-teal-800 hover:text-gray-100"
+            } flex items-center m-1 space-x-4 block py-3 px-6 rounded-md transition`
           }
         >
           <FaCalendarAlt />
           <span>Leaves</span>
         </NavLink>
-        {/* <NavLink
-          to="/admin-dashboard"
-          className="flex items-center space-x-4 block py-2.5 px-4 rounded"
-        >
-          <FaMoneyBillWave />
-          <span>Salary</span>
-        </NavLink> */}
+
         <NavLink
           to="/admin-dashboard"
           className="flex items-center space-x-4 block py-2.5 px-4 rounded"

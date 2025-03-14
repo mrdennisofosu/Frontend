@@ -1,53 +1,56 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
-import {
-  FaTachometerAlt,
-  FaBuilding,
-  FaUsers,
-  // FaCalendarAlt,
-  // FaMoneyBillWave,
-  FaCogs,
-} from "react-icons/fa";
+import { FaTachometerAlt, FaBuilding, FaUsers, FaCogs } from "react-icons/fa";
 
 const Sidebar = () => {
   return (
-    <div className="bg-gray-800 text-white h-screen fixed left-0 top-0 bottom-0 space-y-2 w-64">
-      <div className="bg-teal-600 h-12 flex items-center justify-center">
-        <h3 className="text-2xl text-center font-plus-jakarta">
+    <div className="bg-gray-900 text-white h-screen fixed left-0 top-0 bottom-0 space-y-2 w-64 shadow-lg">
+      {/* Header */}
+      <div className="bg-teal-800 h-16 flex items-center justify-center shadow-md">
+        <h3 className="text-xl text-center font-semibold tracking-wide">
           Mojo Employee M.S.
-          {/* <img src={logo1} /> */}
         </h3>
       </div>
-      <div>
+
+      {/* Sidebar Links */}
+      <div className="mt-4">
         <NavLink
           to="/employee-dashboard"
           className={({ isActive }) =>
             `${
-              isActive ? "bg-teal-500 " : ""
-            } flex items-center space-x-4 block py-2.5 px-4 rounded`
+              isActive
+                ? "bg-teal-800 text-white"
+                : "hover:bg-teal-800 hover:text-gray-100"
+            } flex items-center m-1 space-x-4 block py-3 px-6 rounded-md transition`
           }
           end
         >
           <FaTachometerAlt />
           <span>Dashboard</span>
         </NavLink>
+
         <NavLink
           to="/employee-dashboard/profile"
           className={({ isActive }) =>
             `${
-              isActive ? "bg-teal-500 " : ""
-            } flex items-center space-x-4 block py-2.5 px-4 rounded`
+              isActive
+                ? "bg-teal-800 text-white"
+                : "hover:bg-teal-800 hover:text-gray-100"
+            } flex items-center m-1 space-x-4 block py-3 px-5 rounded-md transition`
           }
         >
           <FaUsers />
           <span>My Profile</span>
         </NavLink>
+
         <NavLink
           to="/employee-dashboard/leaves"
           className={({ isActive }) =>
             `${
-              isActive ? "bg-teal-500 " : ""
-            } flex items-center space-x-4 block py-2.5 px-4 rounded`
+              isActive
+                ? "bg-teal-800 text-white"
+                : "hover:bg-teal-800 hover:text-gray-100"
+            } flex items-center m-1 space-x-4 block py-3 px-5 rounded-md transition`
           }
         >
           <FaBuilding />
@@ -58,8 +61,10 @@ const Sidebar = () => {
           to="/employee-dashboard/setting"
           className={({ isActive }) =>
             `${
-              isActive ? "bg-teal-500 " : ""
-            } flex items-center space-x-4 block py-2.5 px-4 rounded`
+              isActive
+                ? "bg-teal-800 text-white"
+                : "hover:bg-teal-800 hover:text-gray-100"
+            } flex items-center m-1 space-x-4 block py-3 px-5 rounded-md transition`
           }
         >
           <FaCogs />
