@@ -90,7 +90,7 @@ const AddLeave = () => {
       <div className="flex justify-between items-center mb-6">
         <h2 className="text-3xl font-bold">Request for Leave</h2>
         <Link
-          to="/admin-dashboard/employee"
+          to="/employee-dashboard/leaves"
           className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded"
         >
           Return
