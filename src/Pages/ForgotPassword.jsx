@@ -16,7 +16,7 @@ const ForgotPassword = () => {
   };
 
   return (
-    <div className="relative flex flex-col items-center h-screen justify-center bg-gradient-to-b from-teal-700 to-green-300">
+    <div className="relative flex font-jakarta flex-col items-center h-screen justify-center bg-gradient-to-b from-teal-700 to-green-300">
       {/* Book Stickers Background */}
       <div className="absolute inset-0 flex flex-wrap gap-6 p-10 opacity-20">
         <div className="w-20 h-28 bg-yellow-300 rotate-12 rounded-lg shadow-lg"></div>

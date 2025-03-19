@@ -84,7 +84,7 @@ export const EmployeeButtons = ({ Id }) => {
   };
 
   return (
-    <div className="flex space-x-2">
+    <div className="flex space-x-2 font-jakarta">
       {/* <button
       // onClick={handleView}
       > */}
@@ -96,9 +96,6 @@ export const EmployeeButtons = ({ Id }) => {
       </Link>
       {/* </button> */}
 
-      <button className="px-2 py-1 bg-yellow-500 rounded text-white">
-        Leave
-      </button>
       <button
         onClick={handleDelete}
         className="px-2 py-1 bg-red-600 hover:bg-red-900 text-white rounded"

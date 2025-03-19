@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 const Add = () => {
   const navigate = useNavigate();
   const [departments, setDepartments] = useState([]);
+  const [successMessage, setSuccessMessage] = useState(""); // Success message state
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -21,7 +22,6 @@ const Add = () => {
   });
 
   useEffect(() => {
-    // Fetch stored departments from localStorage
     const storedDepartments =
       JSON.parse(localStorage.getItem("departments")) || [];
     setDepartments(storedDepartments);
@@ -33,68 +33,44 @@ const Add = () => {
     if (name === "image" && files.length > 0) {
       const file = files[0];
       const base64 = await convertToBase64(file);
-
-      // Save to localStorage
       localStorage.setItem("uploadedImage", base64);
 
       setFormData((prevData) => ({
         ...prevData,
-        image: base64, // Store Base64 image in state
+        image: base64,
       }));
     } else {
       setFormData((prevData) => ({
         ...prevData,
-        [name]: value, // Update other input fields
+        [name]: value,
       }));
     }
   };
 
-  // Convert image to Base64 function
-  const convertToBase64 = (file) => {
-    return new Promise((resolve, reject) => {
-      const reader = new FileReader();
-      reader.readAsDataURL(file);
-      reader.onload = () => resolve(reader.result);
-      reader.onerror = (error) => reject(error);
-    });
-  };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("handleSubmit triggered");
-
     const employees = JSON.parse(localStorage.getItem("employees")) || [];
 
-    // Check for duplicate Employee ID
     if (employees.some((emp) => emp.employeeId === formData.employeeId)) {
       alert("Employee ID already exists. Please use a unique ID.");
       return;
     }
 
-    // Create a new employee object
     const newEmployee = {
       id: employees.length + 1,
-      name: formData.name,
-      email: formData.email,
-      employeeId: formData.employeeId,
-      dob: formData.dob,
-      gender: formData.gender,
-      maritalStatus: formData.maritalStatus,
-      designation: formData.designation,
-      department: formData.department,
-      phoneNumber: formData.phoneNumber,
-      password: formData.password,
-      role: formData.role,
-      image: formData.image,
+      ...formData,
     };
 
-    // Add the new employee to the array
     employees.push(newEmployee);
-
-    // Save updated list back to localStorage
     localStorage.setItem("employees", JSON.stringify(employees));
 
-    // Reset input fields
+    setSuccessMessage("Employee added successfully!");
+
+    setTimeout(() => {
+      setSuccessMessage("");
+      navigate("/admin-dashboard/employees");
+    }, 2000);
+
     setFormData({
       name: "",
       email: "",
@@ -109,14 +85,15 @@ const Add = () => {
       role: "",
       image: null,
     });
-
-    // Show success alert
-    alert("Employee added successfully!");
-    navigate("/admin-dashboard/employees");
   };
 
   return (
-    <div className="max-w-4xl mx-auto mt-10 bg-white p-8 rounded-md shadow-md">
+    <div className="max-w-4xl font-jakarta mx-auto mt-10 bg-white p-8 rounded-md shadow-md">
+      {successMessage && (
+        <div className="bg-green-100 border border-green-400 text-green-700 px-4 py-2 mb-4 rounded">
+          {successMessage}
+        </div>
+      )}
       <div className="flex justify-between items-center mb-6">
         <h2 className="text-3xl font-bold mb-2">Add New Employee</h2>
         <Link
@@ -126,6 +103,7 @@ const Add = () => {
           Return
         </Link>
       </div>
+
       <form onSubmit={handleSubmit}>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {/* Name */}

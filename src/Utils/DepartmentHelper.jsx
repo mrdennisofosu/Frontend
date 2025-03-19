@@ -36,7 +36,7 @@ export const DepartmentButtons = ({ Id, onDelete }) => {
   };
 
   return (
-    <div className="flex space-x-3">
+    <div className="flex space-x-3 font-jakarta">
       <Link
         to="/admin-dashboard/view-department"
         className="px-2 py-1 bg-blue-500 hover:bg-blue-900 rounded text-white"

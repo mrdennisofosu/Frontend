@@ -59,7 +59,7 @@ const Setting = () => {
   return (
     <div className="max-w-md font-jakarta mx-auto mt-10 bg-white p-6 rounded-md shadow-md">
       <h2 className="text-2xl font-bold text-center mb-6">Change Password</h2>
-      {message && <p className="text-center text-green-700">{message}</p>}
+      {message && <p className="text-center text-red-500">{message}</p>}
       <form onSubmit={handlePasswordChange} className="space-y-4">
         <div>
           <label className="block text-sm font-medium text-gray-700">

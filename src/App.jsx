@@ -15,6 +15,7 @@ import LeaveList from "./Components/leave/LeaveList";
 import AddLeave from "./Components/leave/AddLeave";
 import AdminLeave from "./Components/AdminLeaves/AdminLeave";
 import Setting from "./Components/EmployeeDashboard/Setting";
+import AdminSettings from "./Components/dashboard/AdminSettings";
 import ForgotPassword from "./Pages/ForgotPassword";
 import ResetPassword from "./Pages/ResetPassword";
 
@@ -64,6 +65,10 @@ function App() {
             element={<View />}
           ></Route>
           <Route path="/admin-dashboard/leave" element={<AdminLeave />}></Route>
+          <Route
+            path="/admin-dashboard/admin-settings"
+            element={<AdminSettings />}
+          ></Route>
         </Route>
 
         <Route

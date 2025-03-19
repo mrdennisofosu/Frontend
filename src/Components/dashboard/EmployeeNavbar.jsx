@@ -3,15 +3,14 @@ import { useNavigate, NavLink } from "react-router-dom";
 import logo1 from "./logo1.png";
 import {
   FaTachometerAlt,
-  FaBuilding,
   FaUsers,
-  FaCalendarAlt,
+  FaBuilding,
   FaCogs,
   FaBars,
   FaTimes,
 } from "react-icons/fa";
 
-const Navbar = () => {
+const EmployeeNavbar = () => {
   const [user, setUser] = useState(null);
   const [menuOpen, setMenuOpen] = useState(false);
   const navigate = useNavigate();
@@ -40,22 +39,25 @@ const Navbar = () => {
           <p className="text-lg font-medium hidden md:block">
             Welcome, {user?.name}
           </p>
-        </div>{" "}
+        </div>
+
+        {/* Mobile Menu Button */}
         <button
           className="md:hidden text-2xl"
           onClick={() => setMenuOpen(!menuOpen)}
         >
           {menuOpen ? <FaTimes /> : <FaBars />}
         </button>
+
         {/* Desktop Navigation */}
-        <ul className="hidden md:flex items-center space-x-2">
+        <ul className="hidden md:flex items-center ml-40 space-x-2">
           <li>
             <NavLink
-              to="/admin-dashboard"
+              to="/employee-dashboard"
               className={({ isActive }) =>
                 `flex items-center space-x-2 px-4 py-2 rounded-md transition ${
                   isActive
-                    ? "bg-[#4500ff] text-white"
+                    ? "bg-[#00356B] text-white"
                     : "hover:bg-[#4500ff] hover:text-white"
                 }`
               }
@@ -68,59 +70,43 @@ const Navbar = () => {
 
           <li>
             <NavLink
-              to="/admin-dashboard/employees"
+              to="/employee-dashboard/profile"
               className={({ isActive }) =>
                 `flex items-center space-x-2 px-4 py-2 rounded-md transition ${
                   isActive
-                    ? "bg-[#4500ff] text-white"
+                    ? "bg-[#00356B] text-white"
                     : "hover:bg-[#4500ff] hover:text-white"
                 }`
               }
             >
               <FaUsers />
-              <span>Employees</span>
+              <span>My Profile</span>
             </NavLink>
           </li>
 
           <li>
             <NavLink
-              to="/admin-dashboard/departments"
+              to="/employee-dashboard/leaves"
               className={({ isActive }) =>
                 `flex items-center space-x-2 px-4 py-2 rounded-md transition ${
                   isActive
-                    ? "bg-[#4500ff] text-white"
+                    ? "bg-[#00356B] text-white"
                     : "hover:bg-[#4500ff] hover:text-white"
                 }`
               }
             >
               <FaBuilding />
-              <span>Departments</span>
-            </NavLink>
-          </li>
-
-          <li>
-            <NavLink
-              to="/admin-dashboard/leave"
-              className={({ isActive }) =>
-                `flex items-center space-x-2 px-4 py-2 rounded-md transition ${
-                  isActive
-                    ? "bg-[#4500ff] text-white"
-                    : "hover:bg-[#4500ff] hover:text-white"
-                }`
-              }
-            >
-              <FaCalendarAlt />
               <span>Leaves</span>
             </NavLink>
           </li>
 
           <li>
             <NavLink
-              to="/admin-dashboard/admin-settings"
+              to="/employee-dashboard/setting"
               className={({ isActive }) =>
                 `flex items-center space-x-2 px-4 py-2 rounded-md transition ${
                   isActive
-                    ? "bg-[#4500ff] text-white"
+                    ? "bg-[#00356B] text-white"
                     : "hover:bg-[#4500ff] hover:text-white"
                 }`
               }
@@ -130,15 +116,14 @@ const Navbar = () => {
             </NavLink>
           </li>
         </ul>
+
         {/* Desktop Logout Button */}
-        <div className="hidden md:flex items-center space-x-4">
-          <button
-            onClick={handleLogout}
-            className="px-4 py-2 bg-blue-700 hover:bg-blue-800 text-white font-medium rounded-md transition"
-          >
-            Logout
-          </button>
-        </div>
+        <button
+          onClick={handleLogout}
+          className="hidden md:block px-4 py-2 bg-blue-600 hover:bg-blue-800 text-white font-medium rounded-md transition"
+        >
+          Logout
+        </button>
       </div>
 
       {/* Mobile Menu */}
@@ -159,7 +144,7 @@ const Navbar = () => {
         <ul className="mt-16 flex flex-col space-y-4 p-4">
           <li>
             <NavLink
-              to="/admin-dashboard"
+              to="/employee-dashboard"
               onClick={() => setMenuOpen(false)}
               className={({ isActive }) =>
                 `flex items-center space-x-2 p-4 rounded-md transition ${
@@ -177,7 +162,7 @@ const Navbar = () => {
 
           <li>
             <NavLink
-              to="/admin-dashboard/employees"
+              to="/employee-dashboard/profile"
               onClick={() => setMenuOpen(false)}
               className={({ isActive }) =>
                 `flex items-center space-x-2 p-4 rounded-md transition ${
@@ -188,13 +173,13 @@ const Navbar = () => {
               }
             >
               <FaUsers />
-              <span>Employees</span>
+              <span>My Profile</span>
             </NavLink>
           </li>
 
           <li>
             <NavLink
-              to="/admin-dashboard/departments"
+              to="/employee-dashboard/leaves"
               onClick={() => setMenuOpen(false)}
               className={({ isActive }) =>
                 `flex items-center space-x-2 p-4 rounded-md transition ${
@@ -205,30 +190,13 @@ const Navbar = () => {
               }
             >
               <FaBuilding />
-              <span>Departments</span>
-            </NavLink>
-          </li>
-
-          <li>
-            <NavLink
-              to="/admin-dashboard/leave"
-              onClick={() => setMenuOpen(false)}
-              className={({ isActive }) =>
-                `flex items-center space-x-2 p-4 rounded-md transition ${
-                  isActive
-                    ? "bg-[#4500ff] text-white"
-                    : "hover:bg-[#4500ff] hover:text-white"
-                }`
-              }
-            >
-              <FaCalendarAlt />
               <span>Leaves</span>
             </NavLink>
           </li>
 
           <li>
             <NavLink
-              to="/admin-dashboard/admin-settings"
+              to="/employee-dashboard/setting"
               onClick={() => setMenuOpen(false)}
               className={({ isActive }) =>
                 `flex items-center space-x-2 p-4 rounded-md transition ${
@@ -258,4 +226,4 @@ const Navbar = () => {
   );
 };
 
-export default Navbar;
+export default EmployeeNavbar;

@@ -41,13 +41,13 @@ const ViewDepartment = () => {
   };
 
   return (
-    <div className="max-w-4xl mx-auto mt-10 bg-white p-8 rounded-md shadow-md">
+    <div className="max-w-4xl font-jakarta mx-auto mt-10 bg-white p-8 rounded-md shadow-md">
       {/* Header with Department Details and Return Button */}
       <div className="flex justify-between items-center mb-6">
         <h2 className="text-2xl font-bold">Department Details</h2>
         <Link
           to="/admin-dashboard/departments"
-          className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded"
+          className="bg-blue-600 hover:bg-blue-800 text-white font-bold py-2 px-4 rounded"
         >
           Return
         </Link>
@@ -65,7 +65,7 @@ const ViewDepartment = () => {
               <p className="text-sm">Description: {department.description}</p>
               <button
                 onClick={() => handleView(department)}
-                className="mt-3 bg-teal-600 hover:bg-teal-700 text-white font-bold py-2 px-4 rounded"
+                className="mt-3 bg-blue-600 hover:bg-blue-800 text-white font-bold py-2 px-4 rounded"
               >
                 View
               </button>
@@ -110,7 +110,7 @@ const ViewDepartment = () => {
               <button
                 type="button"
                 onClick={handleSave}
-                className="mt-4 bg-teal-600 hover:bg-teal-700 text-white font-bold py-2 px-4 rounded"
+                className="mt-4 bg-blue-600 hover:bg-blue-800 text-white font-bold py-2 px-4 rounded"
               >
                 Save Changes
               </button>
@@ -121,7 +121,7 @@ const ViewDepartment = () => {
               <p>Description: {selectedDepartment.description}</p>
               <button
                 onClick={handleEdit}
-                className="mt-4 bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded"
+                className="mt-4 bg-blue-600 hover:bg-blue-800 text-white font-bold py-2 px-4 rounded"
               >
                 Edit
               </button>

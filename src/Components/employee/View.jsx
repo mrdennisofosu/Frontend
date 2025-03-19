@@ -44,7 +44,7 @@ const View = () => {
   };
 
   return (
-    <div className="max-w-4xl mx-auto mt-10 bg-white p-8 rounded-md shadow-md">
+    <div className="max-w-4xl font-jakarta mx-auto mt-10 bg-white p-8 rounded-md shadow-md">
       <div className="flex justify-between items-center mb-6">
         <h2 className="text-2xl font-bold">Employee Details</h2>
 
@@ -69,7 +69,7 @@ const View = () => {
               <p className="text-sm">ID: {employee.employeeId}</p>
               <button
                 onClick={() => handleView(employee)}
-                className="mt-3 bg-teal-600 hover:bg-teal-700 text-white font-bold py-2 px-4 rounded"
+                className="mt-3 bg-blue-600 hover:bg-blue-800 text-white font-bold py-2 px-4 rounded"
               >
                 View
               </button>
@@ -215,7 +215,7 @@ const View = () => {
 
                 <button
                   onClick={handleEdit}
-                  className="mt-4 bg-blue-500 hover:bg-blue-600 text-white font-bold py-2.5 px-5.5 rounded mr-4"
+                  className="mt-4 bg-blue-600 hover:bg-blue-900 text-white font-bold py-2.5 px-5.5 rounded mr-4"
                 >
                   Edit
                 </button>

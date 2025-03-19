@@ -1,7 +1,7 @@
 
 // Updated mock users with more users
 const mockUsers = [
-    { id: 1, name: "Admin", email: "admin@gmail.com", password: "admin123", role: "admin" },
+    { id: 1, name: "Admin", email: "admin@gmail.com", password: "admin123", role: "hr manager" },
     { id: 2, name: "John Doe", email: "john@gmail.com", password: "john123", role: "employee" },
     { id: 3, name: "Dennis Ofosu", email: "dennis@gmail.com", password: "dennis123", role: "employee" },
     { id: 4, name: "Jane Smith", email: "jane@gmail.com", password: "jane123", role: "employee" },
