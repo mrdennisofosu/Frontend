@@ -69,24 +69,25 @@ const List = () => {
   return (
     <div className="p-6 font-jakarta">
       {/* Header */}
-      <div className="flex justify-between items-center">
-        <h3 className="text-[1.3rem]  font-bold">Manage Employees</h3>
-        <Link
-          to="/admin-dashboard/add-employee"
-          className="px-2 py-1.5 bg-blue-600 hover:bg-blue-900 text-white font-medium rounded-md"
-        >
-          Add Employee
-        </Link>
+      <div className="text-center">
+        <h3 className="text-[2rem]  font-bold">Manage Employees</h3>
       </div>
 
       {/* Search Input */}
-      <div className="mt-4">
+      <div className="mt-4 flex justify-between items-cente">
         <input
           type="text"
           placeholder="Search By Employee Name"
-          className="px-4 py-2 bg-gray-200 rounded w-full md:w-1/3"
+          className="px-4 py-2 bg-gray-300  rounded w-full md:w-1/3"
           onChange={filterEmployees}
         />
+        <Link
+          to="/admin-dashboard/add-employee"
+          className="px-4 py-1 bg-blue-600 hover:bg-blue-800 rounded text-white ml-2 flex sm:flex-row flex-col items-center leading-tight text-center"
+        >
+          <span className="text-lg">Add</span>
+          <span className="text-lg sm:ml-1">Employee</span>
+        </Link>
       </div>
 
       {/* View Mode: Grid (Mobile) & Table (Desktop) */}

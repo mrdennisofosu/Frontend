@@ -57,8 +57,8 @@ const EmployeeNavbar = () => {
               className={({ isActive }) =>
                 `flex items-center space-x-2 px-4 py-2 rounded-md transition ${
                   isActive
-                    ? "bg-[#00356B] text-white"
-                    : "hover:bg-[#4500ff] hover:text-white"
+                    ? "bg-[#00416A] text-white"
+                    : "hover:bg-[#009DC4] hover:text-black"
                 }`
               }
               end
@@ -74,8 +74,8 @@ const EmployeeNavbar = () => {
               className={({ isActive }) =>
                 `flex items-center space-x-2 px-4 py-2 rounded-md transition ${
                   isActive
-                    ? "bg-[#00356B] text-white"
-                    : "hover:bg-[#4500ff] hover:text-white"
+                    ? "bg-[#00416A] text-white"
+                    : "hover:bg-[#009DC4] hover:text-black"
                 }`
               }
             >
@@ -90,8 +90,8 @@ const EmployeeNavbar = () => {
               className={({ isActive }) =>
                 `flex items-center space-x-2 px-4 py-2 rounded-md transition ${
                   isActive
-                    ? "bg-[#00356B] text-white"
-                    : "hover:bg-[#4500ff] hover:text-white"
+                    ? "bg-[#00416A] text-white"
+                    : "hover:bg-[#009DC4] hover:text-black"
                 }`
               }
             >
@@ -106,8 +106,8 @@ const EmployeeNavbar = () => {
               className={({ isActive }) =>
                 `flex items-center space-x-2 px-4 py-2 rounded-md transition ${
                   isActive
-                    ? "bg-[#00356B] text-white"
-                    : "hover:bg-[#4500ff] hover:text-white"
+                    ? "bg-[#00416A] text-white"
+                    : "hover:bg-[#009DC4] hover:text-black"
                 }`
               }
             >

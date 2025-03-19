@@ -40,7 +40,8 @@ const Navbar = () => {
           <p className="text-lg font-medium hidden md:block">
             Welcome, {user?.name}
           </p>
-        </div>{" "}
+        </div>
+
         <button
           className="md:hidden text-2xl"
           onClick={() => setMenuOpen(!menuOpen)}
@@ -48,15 +49,15 @@ const Navbar = () => {
           {menuOpen ? <FaTimes /> : <FaBars />}
         </button>
         {/* Desktop Navigation */}
-        <ul className="hidden md:flex items-center space-x-2">
+        <ul className="hidden md:flex items-center ml-20 space-x-2">
           <li>
             <NavLink
               to="/admin-dashboard"
               className={({ isActive }) =>
                 `flex items-center space-x-2 px-4 py-2 rounded-md transition ${
                   isActive
-                    ? "bg-[#4500ff] text-white"
-                    : "hover:bg-[#4500ff] hover:text-white"
+                    ? "bg-[#00416A] text-white"
+                    : "hover:bg-[#009DC4] hover:text-black"
                 }`
               }
               end
@@ -72,8 +73,8 @@ const Navbar = () => {
               className={({ isActive }) =>
                 `flex items-center space-x-2 px-4 py-2 rounded-md transition ${
                   isActive
-                    ? "bg-[#4500ff] text-white"
-                    : "hover:bg-[#4500ff] hover:text-white"
+                    ? "bg-[#00416A] text-white"
+                    : "hover:bg-[#009DC4] hover:text-black"
                 }`
               }
             >
@@ -88,8 +89,8 @@ const Navbar = () => {
               className={({ isActive }) =>
                 `flex items-center space-x-2 px-4 py-2 rounded-md transition ${
                   isActive
-                    ? "bg-[#4500ff] text-white"
-                    : "hover:bg-[#4500ff] hover:text-white"
+                    ? "bg-[#00416A] text-white"
+                    : "hover:bg-[#009DC4] hover:text-black"
                 }`
               }
             >
@@ -104,8 +105,8 @@ const Navbar = () => {
               className={({ isActive }) =>
                 `flex items-center space-x-2 px-4 py-2 rounded-md transition ${
                   isActive
-                    ? "bg-[#4500ff] text-white"
-                    : "hover:bg-[#4500ff] hover:text-white"
+                    ? "bg-[#00416A] text-white"
+                    : "hover:bg-[#009DC4] hover:text-black"
                 }`
               }
             >
@@ -120,8 +121,8 @@ const Navbar = () => {
               className={({ isActive }) =>
                 `flex items-center space-x-2 px-4 py-2 rounded-md transition ${
                   isActive
-                    ? "bg-[#4500ff] text-white"
-                    : "hover:bg-[#4500ff] hover:text-white"
+                    ? "bg-[#00416A] text-white"
+                    : "hover:bg-[#009DC4] hover:text-black"
                 }`
               }
             >
