@@ -57,34 +57,38 @@ const View = () => {
         </Link>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        {employees.map((employee) => (
-          <div
-            key={employee.id}
-            className="border p-4 rounded-md shadow-md bg-gray-100 flex justify-between items-center"
-          >
-            <div>
-              <h3 className="font-bold text-lg">{employee.name}</h3>
-              <p className="text-sm">Email: {employee.email}</p>
-              <p className="text-sm">ID: {employee.employeeId}</p>
-              <button
-                onClick={() => handleView(employee)}
-                className="mt-3 bg-blue-600 hover:bg-blue-800 text-white font-bold py-2 px-4 rounded"
-              >
-                View
-              </button>
+      {/* Show employees list only if no employee is selected */}
+      {!selectedEmployee && (
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          {employees.map((employee) => (
+            <div
+              key={employee.id}
+              className="border p-4 rounded-md shadow-md bg-gray-100 flex justify-between items-center"
+            >
+              <div>
+                <h3 className="font-bold text-lg">{employee.name}</h3>
+                <p className="text-sm">Email: {employee.email}</p>
+                <p className="text-sm">ID: {employee.employeeId}</p>
+                <button
+                  onClick={() => handleView(employee)}
+                  className="mt-3 bg-blue-600 hover:bg-blue-800 text-white font-bold py-2 px-4 rounded"
+                >
+                  View
+                </button>
+              </div>
+              {employee.image && (
+                <img
+                  src={employee.image}
+                  alt={employee.name}
+                  className="w-20 h-20 object-cover rounded ml-4"
+                />
+              )}
             </div>
-            {employee.image && (
-              <img
-                src={employee.image}
-                alt={employee.name}
-                className="w-20 h-20 object-cover rounded ml-4"
-              />
-            )}
-          </div>
-        ))}
-      </div>
+          ))}
+        </div>
+      )}
 
+      {/* Show selected employee details */}
       {selectedEmployee && (
         <div className="mt-10 border p-6 rounded-md bg-gray-50 shadow-md flex justify-between items-start">
           <div className="flex-1">

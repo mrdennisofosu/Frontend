@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+
 const ViewDepartment = () => {
   const [departments, setDepartments] = useState([]);
   const [selectedDepartment, setSelectedDepartment] = useState(null);
@@ -20,7 +21,7 @@ const ViewDepartment = () => {
   };
 
   const handleEdit = () => {
-    setEditMode(true); // Enable edit mode
+    setEditMode(true); // Enable edit mode and hide other departments
   };
 
   const handleChange = (e) => {
@@ -40,6 +41,11 @@ const ViewDepartment = () => {
     alert("Department details updated successfully!");
   };
 
+  const handleCancelEdit = () => {
+    setEditMode(false);
+    setFormData(selectedDepartment); // Reset form data if edit is canceled
+  };
+
   return (
     <div className="max-w-4xl font-jakarta mx-auto mt-10 bg-white p-8 rounded-md shadow-md">
       {/* Header with Department Details and Return Button */}
@@ -53,26 +59,28 @@ const ViewDepartment = () => {
         </Link>
       </div>
 
-      {/* List of Departments */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        {departments.map((department) => (
-          <div
-            key={department.id}
-            className="border p-4 rounded-md shadow-md bg-gray-100 flex justify-between items-center"
-          >
-            <div>
-              <h3 className="font-bold text-lg">{department.dep_name}</h3>
-              <p className="text-sm">Description: {department.description}</p>
-              <button
-                onClick={() => handleView(department)}
-                className="mt-3 bg-blue-600 hover:bg-blue-800 text-white font-bold py-2 px-4 rounded"
-              >
-                View
-              </button>
+      {/* Show List Only If No Department is Selected */}
+      {!selectedDepartment && (
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          {departments.map((department) => (
+            <div
+              key={department.id}
+              className="border p-4 rounded-md shadow-md bg-gray-100 flex justify-between items-center"
+            >
+              <div>
+                <h3 className="font-bold text-lg">{department.dep_name}</h3>
+                <p className="text-sm">Description: {department.description}</p>
+                <button
+                  onClick={() => handleView(department)}
+                  className="mt-3 bg-blue-600 hover:bg-blue-800 text-white font-bold py-2 px-4 rounded"
+                >
+                  View
+                </button>
+              </div>
             </div>
-          </div>
-        ))}
-      </div>
+          ))}
+        </div>
+      )}
 
       {/* Selected Department Details */}
       {selectedDepartment && (
@@ -110,15 +118,26 @@ const ViewDepartment = () => {
               <button
                 type="button"
                 onClick={handleSave}
-                className="mt-4 bg-blue-600 hover:bg-blue-800 text-white font-bold py-2 px-4 rounded"
+                className="mt-4 bg-green-600 hover:bg-green-800 text-white font-bold py-2 px-4 rounded"
               >
                 Save Changes
+              </button>
+              <button
+                type="button"
+                onClick={handleCancelEdit}
+                className="mt-4 bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded ml-4"
+              >
+                Cancel
               </button>
             </form>
           ) : (
             <>
-              <p>Name: {selectedDepartment.dep_name}</p>
-              <p>Description: {selectedDepartment.description}</p>
+              <p>
+                <strong>Name:</strong> {selectedDepartment.dep_name}
+              </p>
+              <p>
+                <strong>Description:</strong> {selectedDepartment.description}
+              </p>
               <button
                 onClick={handleEdit}
                 className="mt-4 bg-blue-600 hover:bg-blue-800 text-white font-bold py-2 px-4 rounded"
